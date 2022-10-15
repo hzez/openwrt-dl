@@ -64,8 +64,8 @@ jobs:
     - name: 下载软件包
       id: package
       run: |
-        #cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a && make defconfig && make download -j8
-        cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a && make download -j8
+        cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a && make oldconfig && make download -j8
+        #cd openwrt && ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a && make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
@@ -82,5 +82,5 @@ jobs:
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt-x86-Offical-dl
-        path: openwrt/dl
+        path: openwrt/dl/.config
 
